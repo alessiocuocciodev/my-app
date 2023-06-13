@@ -1,23 +1,30 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { useEffect, useState } from "react";
+import axios from 'axios';
+import GroupByProject from './GroupByProject';
+import GroupByProjectEmployee from './GroupByProjectEmployee';
+import GroupByProjectEmployeeDate from './GroupByProjectEmployeeDate';
+import NoGroup from './NoGroup';
 
 function App() {
+  const [selectedButton, setSelectedButton] = useState('home');
+  const handleButtonClick = (button) => {
+    setSelectedButton(button);
+  }
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <button onClick={() => handleButtonClick('project')}>Project</button>
+      <button onClick={() => handleButtonClick('employee')}>Employee</button>
+      <button onClick={() => handleButtonClick('date')}>Date</button>
+      <button onClick={() => handleButtonClick('home')}>No group</button>
+
+      {selectedButton === 'home' && <NoGroup/>}
+      {selectedButton === 'project' && <GroupByProject/>}
+      {selectedButton === 'employee' && <GroupByProjectEmployee/>}
+      {selectedButton === 'date' && <GroupByProjectEmployeeDate/>}
+
+
     </div>
   );
 }
